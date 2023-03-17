@@ -3,24 +3,43 @@ import HogsTile from './HogsTile';
 
 function HogsContainer({ hogs, greased, sortPigs }) {
 
-    // const sortedName = hogs.sort((a, b) => a.name > b.name ? 1 : -1);
-    // const sortedWeight = hogs.sort((a, b) => a.weight < b.weight ? 1 : -1);
+  //! sort is destructive!!!!!!!
 
-    // console.log(sortedName);
+  // let sortedHogs;
 
-    // let sortedArr;
-    // if(sortPigs === 'name') sortedArr = sortedName;
-    // else if(sortPigs === 'weight') sortedArr = sortedWeight;
+  // if(sortPigs === 'All') {
+  //   sortedHogs = hogs;
+  // } else if(sortPigs === 'name') {
+  //   const sortedHogs = [...hogs].sort((a, b) => a.name > b.name ? 1 : -1);
+  // } else if(sortPigs === 'weight') {
+  //   const sortedHogs = [...hogs].sort((a, b) => a.weight > b.weight ? 1 : -1);
+  // }
 
-    // const finalSort = sortedArr.map(hog => <HogsTile key={ hog.weight } hog={ hog } />)
 
-    const filtered = !greased ? hogs : hogs.filter(hog => hog.greased);
+  // let sortedArr;
+  // if(sortPigs === 'name') sortPigsByName();
+  // else if(sortPigs === 'weight') sortPigsByWeight();
 
-    const hogRender = filtered.map(hog => <HogsTile key={ hog.weight } hog={ hog } />);
+  // const finalSort = sortedArr.map(hog => <HogsTile key={ hog.weight } hog={ hog } />)
+
+  // const filtered = !greased ? hogs : hogs.filter(hog => hog.greased);
+
+  const filtered = hogs
+    .sort((a, b) => {
+      if (sortPigs === 'name') {
+        return a.name > b.name;
+      }
+      else if (sortPigs === 'weight') {
+        return a.weight > b.weight
+      }
+    })
+    .filter(hog => !greased ? true : hog.greased)
+
+  const hogRender = filtered.map(hog => <HogsTile key={hog.weight} hog={hog} />);
 
   return (
     <div>
-        {hogRender}
+      {hogRender}
     </div>
   )
 }
