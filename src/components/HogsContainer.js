@@ -24,7 +24,7 @@ function HogsContainer({ hogs, greased, sortPigs }) {
 
   // const filtered = !greased ? hogs : hogs.filter(hog => hog.greased);
 
-  const filtered = hogs
+  const filtered = [...hogs]
     .sort((a, b) => {
       if (sortPigs === 'name') {
         return a.name > b.name;
@@ -34,6 +34,8 @@ function HogsContainer({ hogs, greased, sortPigs }) {
       }
     })
     .filter(hog => !greased ? true : hog.greased)
+
+  console.log(filtered, sortPigs)
 
   const hogRender = filtered.map(hog => <HogsTile key={hog.weight} hog={hog} />);
 
